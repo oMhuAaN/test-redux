@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { Input, Button, List } from 'antd';
 import store from './redux/store';
 import {
-  CHANGE_INPUT_VALUE,
-  ADD_TODO_ITEM,
-  DELETE_TODO_ITEM
-} from './redux/actionTypes';
-
+  getActionChangeInputValue,
+  getActionAddTodoItem,
+  getActionDeleteTodoItem
+} from './redux/actionCreators';
 
 class App extends Component {
   constructor(props) {
@@ -15,26 +14,18 @@ class App extends Component {
   }
   state = store.getState();
   handleInputChange = (e) => {
-    const action = {
-      type: CHANGE_INPUT_VALUE,
-      value: e.target.value,
-    }
+    const action = getActionChangeInputValue(e.target.value)
     store.dispatch(action);
   }
   handleStoreChange = () => {
     this.setState(store.getState());
   }
   handleBtnClick = () => {
-    const action = {
-      type: ADD_TODO_ITEM,
-    }
+    const action = getActionAddTodoItem();
     store.dispatch(action);
   }
   handleItemDelete = (index) => {
-    const action = {
-      type: DELETE_TODO_ITEM,
-      index
-    }
+    const action = getActionDeleteTodoItem(index);
     store.dispatch(action);
   }
   render() {
